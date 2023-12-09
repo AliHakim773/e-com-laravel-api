@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\ShoppingCart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrdersController extends Controller
 {
@@ -66,5 +67,24 @@ class OrdersController extends Controller
             'status' => 'success',
             'message' => 'Order updated successfully',
         ]);
+    }
+
+    public function get_orders($id = null)
+    {
+        $user_id = Auth::user()->id;
+
+        if ($id) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'order by id',
+                'order' => Order::where('user_id', $user_id)->where('id', $id)->first(),
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'list of all orders of the user',
+                'orders' => Order::where('user_id', $user_id)->get(),
+            ]);
+        }
     }
 }
