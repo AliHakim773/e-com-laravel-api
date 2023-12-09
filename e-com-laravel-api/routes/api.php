@@ -22,4 +22,5 @@ Route::controller(ProductsController::class)->group(function () {
 
 Route::controller(OrdersController::class)->group(function () {
     Route::post('add_order', 'add_order');
+    Route::post('edit_order/{id}', 'edit_order');
 });
