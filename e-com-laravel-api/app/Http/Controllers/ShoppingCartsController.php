@@ -82,7 +82,8 @@ class ShoppingCartsController extends Controller
             ], 404);
         }
 
-        $cart->status = 'close';
+        $cart->status = 'closed';
+        $cart->save();
 
         return response()->json([
             'status' => 'success',
