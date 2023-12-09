@@ -50,7 +50,7 @@ class ShoppingCartsController extends Controller
         if (!$cart) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Cart not found',
+                'message' => 'History is empty',
             ], 404);
         }
 
@@ -65,4 +65,29 @@ class ShoppingCartsController extends Controller
 
     // adding to cart is just adding an order 
     // if no cart is open it creats a cart with open status
+
+    // to make a transaction you need to close the cart and pay
+    public function make_transaction()
+    {
+        $user_id = Auth::user()->id;
+
+        $cart = ShoppingCart::where('user_id', $user_id)
+            ->where('status', 'open')
+            ->first();
+
+        if (!$cart) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'No Open Cart Found',
+            ], 404);
+        }
+
+        $cart->status = 'close';
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'transaction complete',
+            'cart' => $cart,
+        ]);
+    }
 }
