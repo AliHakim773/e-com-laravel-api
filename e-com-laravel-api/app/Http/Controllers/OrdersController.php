@@ -87,4 +87,24 @@ class OrdersController extends Controller
             ]);
         }
     }
+
+    public function delete_order($id)
+    {
+        $order = Order::find($id);
+
+        if (!$order) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Order not found',
+                'order_id' => $id,
+            ]);
+        }
+        $order->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Order deleted',
+            'Order' => $order,
+        ]);
+    }
 }
