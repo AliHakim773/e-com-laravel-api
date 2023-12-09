@@ -30,4 +30,5 @@ Route::controller(OrdersController::class)->group(function () {
 
 Route::controller(ShoppingCartsController::class)->group(function () {
     Route::get('view_cart', 'view_cart');
+    Route::get('view_transaction_history', 'view_transaction_history');
 });
