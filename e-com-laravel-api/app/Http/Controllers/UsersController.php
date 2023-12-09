@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
@@ -29,15 +30,21 @@ class UsersController extends Controller
             ]);
         }
 
-        User::where('id', $id)->update([
+        $user = User::where('id', $id)->update([
             'name' => $req->name,
             'email' => $req->email,
             'password' => Hash::make($req->password),
         ]);
 
+        $token = Auth::login($user);
         return response()->json([
             'status' => 'success',
             'message' => 'User updated successfully',
+            'user' => $user,
+            'authorisation' => [
+                'token' => $token,
+                'type' => 'bearer',
+            ]
         ]);
     }
 
