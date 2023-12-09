@@ -36,7 +36,7 @@ class OrdersController extends Controller
         $order = Order::create([
             'user_id' => $req->user_id,
             'product_id' =>  $req->product_id,
-            'cart_id' => $cart->id,
+            'shopping_cart_id' => $cart->id,
             'amount' => $req->amount
         ]);
 
