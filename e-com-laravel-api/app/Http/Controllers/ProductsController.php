@@ -63,7 +63,7 @@ class ProductsController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'product by id',
-                'products' => Product::find($id),
+                'product' => Product::find($id),
             ]);
         } else {
             return response()->json([
