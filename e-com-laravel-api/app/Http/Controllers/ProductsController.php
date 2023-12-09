@@ -56,4 +56,40 @@ class ProductsController extends Controller
             'message' => 'Product updated successfully',
         ]);
     }
+
+    public function get_products($id = null)
+    {
+        if ($id) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'product by id',
+                'products' => Product::find($id),
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'list of all products',
+                'products' => Product::get(),
+            ]);
+        }
+    }
+
+    public function delete_product($id)
+    {
+        $product = Product::find($id);
+        if (!$product) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Product not found',
+                'product_id' => $id,
+            ]);
+        }
+        $product->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'product deleted',
+            'product' => $product,
+        ]);
+    }
 }

@@ -15,4 +15,6 @@ Route::controller(AuthController::class)->group(function () {
 Route::controller(ProductsController::class)->group(function () {
     Route::post('add_product', 'add_product');
     Route::post('edit_product/{id}', 'edit_product');
+    Route::get('get_products/{id?}', 'get_products');
+    Route::delete('delete_product/{id?}', 'delete_product');
 });
